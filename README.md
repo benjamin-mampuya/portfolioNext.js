@@ -34,3 +34,34 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+Read [](file:///c%3A/Users/benma/OneDrive/Bureau/portfolio-ben-next/src/components/Hero.jsx#35-35), lines 35 to 45
+
+Read [](file:///c%3A/Users/benma/OneDrive/Bureau/portfolio-ben-next/src/components/Hero.jsx#1-1), lines 1 to 50
+
+Read [](file:///c%3A/Users/benma/OneDrive/Bureau/portfolio-ben-next/package.json)
+
+Ran terminal command: npm install react-type-animation
+
+Awaited terminal completion
+
+Read [](file:///c%3A/Users/benma/OneDrive/Bureau/portfolio-ben-next/package.json#15-15), lines 15 to 30
+
+Replacing 7 lines with 8 lines in [](file:///c%3A/Users/benma/OneDrive/Bureau/portfolio-ben-next/src/components/Hero.jsx)
+
+
+```
+
+```
+
+
+Replacing 4 lines with 11 lines in [](file:///c%3A/Users/benma/OneDrive/Bureau/portfolio-ben-next/src/components/Hero.jsx)
+
+
+```
+
+```
+Ajouter l'effet de machine à écrire au texte en utilisant la bibliothèque `react-type-animation`. Le texte "Front-End Developer | UI/UX Web Designer | Data Analyst | Community Manager | IT Network & Systems Administrator." s'affichera maintenant avec une animation de frappe progressive une fois que l'application s'ouvre. L'animation se déroule une seule fois sans répétition, avec une vitesse modérée.
+
+Made changes.
