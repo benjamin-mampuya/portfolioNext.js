@@ -60,17 +60,19 @@ const Projects = () => {
                         <motion.div
                             key={index}
                             variants={projectVariants}
-                            className="group relative overflow-hidden rounded-xl bg-card border border-borderDark aspect-video flex-shrink-0 cursor-pointer"
+                            className="group relative overflow-hidden rounded-xl bg-card border border-borderDark h-72 sm:h-80 flex-shrink-0 cursor-pointer"
                             whileHover={{ y: -10 }}
                         >
                             {/* Project Image */}
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                priority={false}
-                            />
+                            <div className="absolute inset-0 p-4 sm:p-6">
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    fill
+                                    className="object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
+                                    priority={false}
+                                />
+                            </div>
 
                             {/* Overlay */}
                             <motion.div

@@ -27,7 +27,7 @@ const Navbar = () => {
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
-            className="fixed w-full z-[100] bg-background/90 backdrop-blur-md border-b border-borderDark transition-colors duration-300"
+            className="fixed w-full z-[100] bg-background border-b border-borderDark transition-colors duration-300"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
