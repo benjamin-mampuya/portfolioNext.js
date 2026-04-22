@@ -18,7 +18,7 @@ const Skills = () => {
     ];
 
     return (
-        <section id="skills" className="py-20 bg-background relative border-b border-borderDark z-30 transition-colors duration-300">
+        <section id="skills" className="py-12 md:py-16 bg-background relative border-b border-borderDark z-30 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     className="text-center mb-16"

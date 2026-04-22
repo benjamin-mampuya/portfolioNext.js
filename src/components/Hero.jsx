@@ -18,7 +18,7 @@ const Hero = () => {
     ];
 
     return (
-        <section id="home" className="pt-32 pb-20 md:pt-40 md:pb-28 min-h-screen flex items-center relative overflow-hidden border-b border-borderDark z-40 transition-colors duration-300">
+        <section id="home" className="pt-28 pb-12 md:pt-36 md:pb-16 min-h-[90vh] flex items-center relative overflow-hidden border-b border-borderDark z-40 transition-colors duration-300">
             {/* Background Glows (Mixed Colors) */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] rounded-full"></div>
@@ -86,10 +86,10 @@ const Hero = () => {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-wrap items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-center gap-4 mt-8 w-full">
                             <Link
                                 href="#contact"
-                                className="bg-primary hover:bg-cyan-400 text-gray-900 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:-translate-y-1 text-sm tracking-wider"
+                                className="w-full sm:w-[220px] flex items-center justify-center bg-primary border-2 border-primary hover:bg-cyan-400 hover:border-cyan-400 text-gray-900 font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:-translate-y-1 text-sm tracking-wider"
                             >
                                 Contact-moi
                             </Link>
@@ -97,7 +97,7 @@ const Hero = () => {
                                 href="https://drive.google.com/file/d/1irgogou82SqOh3z-nVIJXyMV7VRU80tZ/view?usp=sharing"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="border-2 border-primary text-primary hover:bg-primary hover:text-gray-900 font-semibold py-3 px-8 rounded-full transition-all duration-300 text-sm tracking-wider transform hover:-translate-y-1"
+                                className="w-full sm:w-[220px] flex items-center justify-center border-2 border-primary text-primary hover:bg-primary hover:text-gray-900 font-semibold py-3 px-6 rounded-full transition-all duration-300 text-sm tracking-wider transform hover:-translate-y-1"
                             >
                                 Télécharger mon CV
                             </a>
