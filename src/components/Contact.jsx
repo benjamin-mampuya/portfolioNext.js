@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-import emailjs from '@emailjs/browser';
-
 const Contact = () => {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -17,12 +15,6 @@ const Contact = () => {
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState(null);
 
-
-    // Initialiser EmailJS au montage du composant
-    useEffect(() => {
-        emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_EMAILJS_PUBLIC_KEY');
-    }, []);
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -33,19 +25,27 @@ const Contact = () => {
         setStatus(null);
 
         try {
-            // Envoyer l'email via EmailJS
-            await emailjs.send(
-                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID',
-                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID',
-                {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
+            // Envoyer l'email via Web3Forms
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: 'd954dd04-1c35-41af-84b6-cbcb4c9f223f',
+                    name: `${formData.firstName} ${formData.lastName}`,
                     email: formData.email,
                     subject: formData.subject,
-                    message: formData.message,
-                    to_email: 'benmampuya247@gmail.com'
-                }
-            );
+                    message: formData.message
+                })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || "Erreur lors de l'envoi");
+            }
 
             setStatus({ type: 'success', message: 'Email envoyé avec succès! Je vous répondrai bientôt.' });
             setFormData({
