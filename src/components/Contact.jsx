@@ -64,7 +64,7 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="py-12 md:py-16 bg-background relative border-b border-borderDark z-[5] transition-colors duration-300">
+        <section id="contact" className="pt-12 pb-4 md:pt-16 md:pb-6 bg-background relative border-b border-borderDark z-[5] transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     className="text-center mb-16"

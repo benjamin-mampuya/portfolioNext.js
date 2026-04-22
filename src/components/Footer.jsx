@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 const Footer = () => {
     return (
-        <footer className="bg-background pt-16 pb-8 border-t border-borderDark relative overflow-hidden z-0 transition-colors duration-300">
+        <footer className="bg-background pt-8 pb-8 relative overflow-hidden z-0 transition-colors duration-300">
             {/* Background Glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
 
