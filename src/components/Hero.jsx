@@ -54,7 +54,7 @@ const Hero = () => {
                         <h2 className="text-sm md:text-base lg:text-lg text-primary font-medium mb-6 leading-relaxed max-w-2xl font-heading">
                             <TypeAnimation
                                 sequence={[
-                                    'Front-End Developer | UI/UX Web Designer | Data Analyst | Community Manager | IT Network & Systems Administrator.',
+                                    'Front-End Developer | UI/UX Web Designer | MEAL Officer | Data Analyst | Community Manager | IT Network & Systems Administrator.',
                                 ]}
                                 wrapper="span"
                                 cursor={false}
@@ -63,10 +63,13 @@ const Hero = () => {
                             />
                         </h2>
                         <p className="text-textMuted text-sm md:text-base mb-8 max-w-xl leading-relaxed">
-                            Je suis passionné par la création de solutions web modernes et
-                            innovantes. Avec une expertise en développement front-end et
-                            design UI, je transforme des idées en expériences digitales
-                            captivantes.
+
+                            Professionnel polyvalent à l’intersection du digital, de la donnée et de
+                            l’impact terrain, je conçois des solutions web intuitives, analyse les données
+                            pour éclairer la prise de décision, et renforce la visibilité des organisations
+                            grâce à des stratégies digitales efficaces. Mon approche allie créativité, rigueur
+                            analytique et compréhension des besoins utilisateurs pour produire des résultats
+                            concrets et mesurables.
                         </p>
 
                         {/* Social Icons */}
