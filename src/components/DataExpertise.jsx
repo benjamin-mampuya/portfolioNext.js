@@ -1,19 +1,54 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Tooltip } from 'recharts';
 
-const data = [
-  { subject: 'React / Next.js', A: 90, fullMark: 100 },
-  { subject: 'UI/UX Design', A: 85, fullMark: 100 },
-  { subject: 'Data Analysis', A: 75, fullMark: 100 },
-  { subject: 'Backend (Node)', A: 70, fullMark: 100 },
-  { subject: 'Performance', A: 80, fullMark: 100 },
-  { subject: 'Animations', A: 85, fullMark: 100 },
+const fullData = [
+    { subject: 'React / Next.js', A: 90, fullMark: 100 },
+    { subject: 'UI/UX Design', A: 85, fullMark: 100 },
+    { subject: 'Data Analysis', A: 75, fullMark: 100 },
+    { subject: 'Agent MEAL', A: 80, fullMark: 100 },
+    { subject: 'Performance', A: 80, fullMark: 100 },
+    { subject: 'Animations', A: 85, fullMark: 100 },
 ];
 
 const DataExpertise = () => {
+    // Initialiser les données à 0 pour que les axes s'affichent
+    const initialChartData = fullData.map(d => ({ ...d, A: 0 }));
+    const [chartData, setChartData] = useState(initialChartData);
+    
+    const chartRef = useRef(null);
+    const isChartInView = useInView(chartRef, { once: true, margin: "-100px" });
+
+    useEffect(() => {
+        if (isChartInView) {
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < fullData.length) {
+                    setChartData(prev => {
+                        const newData = [...prev];
+                        newData[i] = fullData[i];
+                        return newData;
+                    });
+                    i++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 800); // 0.8s par élément
+            return () => clearInterval(interval);
+        }
+    }, [isChartInView]);
+
+    const cardVariants = {
+        hidden: { opacity: 0, x: 50 },
+        visible: i => ({
+            opacity: 1,
+            x: 0,
+            transition: { duration: 0.6, delay: 0.2 + (i * 0.2) }
+        })
+    };
+
     return (
         <section id="expertise" className="py-16 md:py-24 bg-background relative border-b border-borderDark z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,16 +67,19 @@ const DataExpertise = () => {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* items-stretch pour avoir la même hauteur */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch" ref={chartRef}>
+                    
+                    {/* Section Gauche : Chart */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        className="h-[300px] sm:h-[400px] w-full bg-card rounded-2xl border border-borderDark p-4 shadow-xl"
+                        className="h-full min-h-[350px] sm:min-h-[450px] w-full bg-card rounded-2xl border border-borderDark p-4 shadow-xl flex items-center justify-center"
                     >
                         <ResponsiveContainer width="100%" height="100%">
-                            <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
+                            <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
                                 <PolarGrid stroke="#334155" />
                                 <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 12 }} />
                                 <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
@@ -51,6 +89,7 @@ const DataExpertise = () => {
                                     stroke="#00E5FF"
                                     fill="#00E5FF"
                                     fillOpacity={0.3}
+                                    isAnimationActive={true} // Animation Recharts par défaut entre chaque mise à jour
                                 />
                                 <Tooltip
                                     contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px' }}
@@ -60,43 +99,60 @@ const DataExpertise = () => {
                         </ResponsiveContainer>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true }}
-                        className="space-y-6"
-                    >
-                        <div className="bg-card p-6 rounded-xl border border-borderDark hover:border-primary/50 transition-colors">
-                            <h3 className="text-xl font-bold text-textMain mb-2 flex items-center">
-                                <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center mr-3">💻</span>
+                    {/* Section Droite : Cartes */}
+                    <div className="flex flex-col justify-between h-full space-y-6">
+                        <motion.div
+                            custom={0}
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            whileHover={{ scale: 1.02, y: -5 }}
+                            className="bg-card p-6 rounded-xl border border-borderDark hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default flex-1 flex flex-col justify-center"
+                        >
+                            <h3 className="text-xl font-bold text-textMain mb-2 text-center">
                                 Front-End & UI/UX
                             </h3>
                             <p className="text-textMuted">
                                 Création d&apos;interfaces utilisateur performantes et esthétiques avec React, Next.js et Framer Motion. Focus sur l&apos;expérience utilisateur et l&apos;accessibilité.
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className="bg-card p-6 rounded-xl border border-borderDark hover:border-primary/50 transition-colors">
-                            <h3 className="text-xl font-bold text-textMain mb-2 flex items-center">
-                                <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center mr-3">📊</span>
+                        <motion.div
+                            custom={1}
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            whileHover={{ scale: 1.02, y: -5 }}
+                            className="bg-card p-6 rounded-xl border border-borderDark hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default flex-1 flex flex-col justify-center"
+                        >
+                            <h3 className="text-xl font-bold text-textMain mb-2 text-center">
                                 Analyse & Data
                             </h3>
                             <p className="text-textMuted">
                                 Intégration d&apos;outils analytiques, optimisation des performances (Web Vitals) et création de tableaux de bord interactifs pour le suivi des KPI.
                             </p>
-                        </div>
+                        </motion.div>
                         
-                        <div className="bg-card p-6 rounded-xl border border-borderDark hover:border-primary/50 transition-colors">
-                            <h3 className="text-xl font-bold text-textMain mb-2 flex items-center">
-                                <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center mr-3">⚙️</span>
-                                Architecture & Backend
+                        <motion.div
+                            custom={2}
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            whileHover={{ scale: 1.02, y: -5 }}
+                            className="bg-card p-6 rounded-xl border border-borderDark hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 cursor-default flex-1 flex flex-col justify-center"
+                        >
+                            <h3 className="text-xl font-bold text-textMain mb-2 text-center">
+                                Agent MEAL
                             </h3>
                             <p className="text-textMuted">
-                                Conception d&apos;architectures robustes, intégration d&apos;API RESTful/GraphQL et gestion de l&apos;état global des applications.
+                                Expertise en Suivi, Évaluation, Redevabilité et Apprentissage. Conception de systèmes de collecte de données, analyse d&apos;impact et création de rapports stratégiques pour orienter la prise de décision.
                             </p>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
+
                 </div>
             </div>
         </section>

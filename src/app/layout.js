@@ -55,8 +55,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${outfit.variable} scroll-smooth`}>
-      <body className="antialiased min-h-screen bg-background text-textMain transition-colors duration-300">
+    <html lang="fr" className={`${inter.variable} ${outfit.variable} scroll-smooth overflow-x-hidden`}>
+      <body className="antialiased min-h-screen bg-background text-textMain transition-colors duration-300 overflow-x-hidden">
         <AppRouterCacheProvider>
           <ThemeProvider>
             {children}
