@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 
 const testimonials = [
     {
-        name: "Hycenthe MANDELA",
+        name: "Hyacinthe MANDELA",
         role: "Chef de Projet Digital",
         company: "TechCorp",
         text: "Ben a complètement transformé notre interface utilisateur. Son attention aux détails et son expertise sur Next.js ont permis de doubler nos conversions sur mobile.",
