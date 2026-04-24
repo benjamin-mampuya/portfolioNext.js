@@ -97,9 +97,8 @@ const Hero = () => {
                                 Contact-moi
                             </Link>
                             <a
-                                href="https://drive.google.com/file/d/1irgogou82SqOh3z-nVIJXyMV7VRU80tZ/view?usp=sharing"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                href="/CV PROFESSIONNEL BENJAMIN MAMPUYA.pdf"
+                                download
                                 className="w-full sm:w-[220px] flex items-center justify-center border-2 border-primary text-primary hover:bg-primary hover:text-gray-900 font-semibold py-3 px-6 rounded-full transition-all duration-300 text-sm tracking-wider transform hover:-translate-y-1"
                             >
                                 Télécharger mon CV

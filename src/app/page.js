@@ -4,6 +4,8 @@ import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Services from '@/components/Services';
 import Projects from '@/components/Projects';
+import DataExpertise from '@/components/DataExpertise';
+import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import Preloader from '@/components/Preloader';
@@ -15,9 +17,11 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
+      <DataExpertise />
       <Skills />
       <Services />
       <Projects />
+      <Testimonials />
       <Contact />
       <Footer />
     </main>

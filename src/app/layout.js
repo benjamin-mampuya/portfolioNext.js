@@ -5,6 +5,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 config.autoAddCss = false;
 
@@ -34,6 +35,12 @@ export const metadata = {
     locale: 'fr_FR',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ben Mampuya | UI/UX Designer & Développeur',
+    description: "Bienvenue sur le portfolio de Ben Mampuya. Découvrez mes projets, compétences et services numériques.",
+    images: ['/portofolio.png'],
+  },
   robots: {
     index: true,
     follow: true,
@@ -56,6 +63,7 @@ export default function RootLayout({ children }) {
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
+      <GoogleAnalytics gaId="G-XXXXXXX" />
     </html>
   );
 }
