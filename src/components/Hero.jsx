@@ -3,13 +3,39 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn, faGithub, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { TypeAnimation } from 'react-type-animation';
 import profileImg from "../../public/portofolio.png";
 
 const Hero = () => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+    const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+    const handleMouseMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
     const socialLinks = [
         { icon: faLinkedinIn, url: 'https://linkedin.com/in/ben-mampuya', label: 'LinkedIn' },
         { icon: faGithub, url: 'https://github.com/benjamin-mampuya', label: 'GitHub' },
@@ -102,7 +128,7 @@ const Hero = () => {
                                 Contact-moi
                             </Link>
                             <a
-                                href="/CV  BENJAMIN PULUKUTU MAMPUYA.pdf"
+                                href="/cv-benjamin-mampuya.pdf"
                                 download
                                 className="w-full sm:w-[220px] flex items-center justify-center border-2 border-primary text-primary hover:bg-primary hover:text-gray-900 font-semibold py-3 px-6 rounded-full transition-all duration-300 text-sm tracking-wider transform hover:-translate-y-1"
                             >
@@ -117,19 +143,23 @@ const Hero = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
                         className="flex-1 flex justify-center md:justify-end"
+                        style={{ perspective: 1000 }}
                     >
-                        <div
-                            className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-borderDark"
+                        <motion.div
+                            className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-borderDark cursor-hover"
+                            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
                         >
                             <Image
                                 src={profileImg}
-                                alt="Ben Mampuya"
+                                alt="Photo de profil de Ben Mampuya, Développeur Front-End"
                                 fill
                                 style={{ objectFit: 'cover' }}
                                 priority
                                 placeholder='blur'
                             />
-                        </div>
+                        </motion.div>
                     </motion.div>
 
                 </div>
