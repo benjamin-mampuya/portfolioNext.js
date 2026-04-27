@@ -1,4 +1,4 @@
-import { Inter, Outfit } from 'next/font/google';
+import { Inter, Outfit, Dancing_Script } from 'next/font/google';
 import './globals.css';
 import './animations.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
@@ -13,6 +13,7 @@ config.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const dancingScript = Dancing_Script({ subsets: ['latin'], variable: '--font-script' });
 
 export const metadata = {
   title: 'Ben Mampuya | Portfolio',
@@ -57,7 +58,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`${inter.variable} ${outfit.variable} scroll-smooth overflow-x-hidden`}>
+    <html lang="fr" className={`${inter.variable} ${outfit.variable} ${dancingScript.variable} scroll-smooth overflow-x-hidden`}>
       <head>
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFRJ8KG6R0"></script>

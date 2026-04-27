@@ -18,8 +18,9 @@ module.exports = {
         borderLight: 'var(--borderLight)',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Outfit', 'sans-serif'],
+        sans: ['var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-outfit)', 'sans-serif'],
+        script: ['var(--font-script)', 'cursive'],
       },
     },
   },
