@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 
 const testimonials = [
@@ -9,28 +10,28 @@ const testimonials = [
         role: "Chef de Projet Digital",
         company: "TechCorp",
         text: "Ben a complètement transformé notre interface utilisateur. Son attention aux détails et son expertise sur Next.js ont permis de doubler nos conversions sur mobile.",
-        image: "/Hycenthe MANDELA.jpg"
+        image: "/hyacinthe-mandela.jpg"
     },
     {
         name: "Jean Pierre SAIDI",
         role: "Expert en qualification professionnelle",
         company: "RESICO/GIZ-RDC",
         text: "Un vrai plaisir de travailler avec Ben. Son code est propre, bien structuré et les animations qu'il a intégrées apportent une vraie valeur ajoutée au produit.",
-        image: "/Jean Pierre SAIDI.jpg"
+        image: "/jean-pierre-saidi.jpg"
     },
     {
         name: "Noella BULONZA",
         role: "Directrice Marketing",
         company: "E-com Solutions",
         text: "La refonte de notre plateforme a été un succès total. Ben a su comprendre nos enjeux business et les traduire en une expérience utilisateur fluide et moderne.",
-        image: "/Nella BULANZA.png"
+        image: "/nella-bulonza.png"
     },
     {
         name: "Prud ZIHALIRWA",
         role: "CIO",
         company: "Afrix Global",
         text: "Une collaboration exceptionnelle. Ben ne fait pas que coder, il apporte une véritable vision produit qui fait la différence sur le marché actuel.",
-        image: "/Prud ZIHALIRWA.jpeg"
+        image: "/prud-zihalirwa.jpeg"
     }
 ];
 
@@ -95,11 +96,12 @@ const Testimonials = () => {
                             >
                                 {/* Image section */}
                                 <div className="w-full sm:w-2/5 h-72 sm:h-auto relative shrink-0">
-                                    <img 
+                                    <Image 
                                         src={testimonial.image} 
-                                        alt={testimonial.name} 
-                                        className="w-full h-full object-cover object-top" 
-                                        loading="lazy"
+                                        alt={`Portrait de ${testimonial.name}, ${testimonial.role}`} 
+                                        fill
+                                        sizes="(max-width: 640px) 100vw, 40vw"
+                                        className="object-cover object-top" 
                                     />
                                 </div>
                                 
