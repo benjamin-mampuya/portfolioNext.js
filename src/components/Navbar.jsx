@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
@@ -10,8 +11,17 @@ import { useTheme } from '@/components/ThemeProvider';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
+    const pathname = usePathname();
 
     const toggleMenu = () => setIsOpen(!isOpen);
+
+    // If not on homepage, prepend "/" to hash links
+    const getLinkPath = (path) => {
+        if (path.startsWith('#') && pathname !== '/') {
+            return `/${path}`;
+        }
+        return path;
+    };
 
     const navLinks = [
         { name: 'Accueil', path: '#home' },
@@ -19,6 +29,7 @@ const Navbar = () => {
         { name: 'Compétences', path: '#skills' },
         { name: 'Services', path: '#services' },
         { name: 'Projets', path: '#projects' },
+        { name: 'Blog', path: '/blog' },
         { name: 'Contact', path: '#contact' },
     ];
 
@@ -55,14 +66,14 @@ const Navbar = () => {
                             >
                                 {link.name === 'Contact' ? (
                                     <Link
-                                        href={link.path}
+                                        href={getLinkPath(link.path)}
                                         className="text-primary border border-borderDark px-6 py-2 rounded-full hover:bg-primary hover:text-background transition-all duration-300 text-sm font-medium tracking-wide"
                                     >
                                         {link.name}
                                     </Link>
                                 ) : (
                                     <Link
-                                        href={link.path}
+                                        href={getLinkPath(link.path)}
                                         className="text-textMain hover:text-primary transition-colors text-sm font-medium tracking-wide relative group"
                                     >
                                         {link.name}
@@ -123,7 +134,7 @@ const Navbar = () => {
                             >
                                 {link.name === 'Contact' ? (
                                     <Link
-                                        href={link.path}
+                                        href={getLinkPath(link.path)}
                                         onClick={() => setIsOpen(false)}
                                         className="text-primary border border-primary block px-4 py-2 mx-2 rounded-full text-center text-base font-medium hover:bg-primary hover:text-white dark:hover:text-gray-900 transition-colors"
                                     >
@@ -131,7 +142,7 @@ const Navbar = () => {
                                     </Link>
                                 ) : (
                                     <Link
-                                        href={link.path}
+                                        href={getLinkPath(link.path)}
                                         onClick={() => setIsOpen(false)}
                                         className="text-textMain hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors"
                                     >
