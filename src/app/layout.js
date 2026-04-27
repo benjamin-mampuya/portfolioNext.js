@@ -6,6 +6,8 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import CustomCursor from '@/components/CustomCursor';
+import ScrollProgress from '@/components/ScrollProgress';
 
 config.autoAddCss = false;
 
@@ -58,6 +60,8 @@ export default function RootLayout({ children }) {
     <html lang="fr" className={`${inter.variable} ${outfit.variable} scroll-smooth overflow-x-hidden`}>
       <GoogleTagManager gtmId="GTM-KQGQ5W2K" />
       <body className="antialiased min-h-screen bg-background text-textMain transition-colors duration-300 overflow-x-hidden">
+        <CustomCursor />
+        <ScrollProgress />
         <AppRouterCacheProvider>
           <ThemeProvider>
             {children}
