@@ -20,7 +20,7 @@ export const metadata = {
   keywords: ['Ben Mampuya', 'Ben Mampuya portfolio', 'Portfolio', 'UI/UX Designer', 'Front-End Developer', 'Développeur Web RDC', 'Goma', 'Mampuya', 'Ben Pulukutu'],
   authors: [{ name: 'Ben Mampuya' }],
   creator: 'Ben Mampuya',
-  metadataBase: new URL('https://benmampuya.netlify.app'), // Adapté pour Netlify
+  metadataBase: new URL('https://benmampuya.vercel.app'), // Adapté pour Vercel
   openGraph: {
     title: 'Ben Mampuya | UI/UX Designer & Développeur',
     description: "Bienvenue sur le portfolio de Ben Mampuya. Découvrez mes projets, compétences et services numériques.",
