@@ -22,9 +22,7 @@ module.exports = {
         heading: ['var(--font-outfit)', 'sans-serif'],
         script: ['var(--font-script)', 'cursive'],
       },
-      maxWidth: {
-        '7xl': '92%',
-      },
+
     },
   },
   plugins: [],
