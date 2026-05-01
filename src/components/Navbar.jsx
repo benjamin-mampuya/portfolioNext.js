@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/components/ThemeProvider';
@@ -15,12 +15,29 @@ const Navbar = () => {
     const { theme, toggleTheme } = useTheme();
     const { language, toggleLanguage } = useLanguage();
     const pathname = usePathname();
+    const [activeSection, setActiveSection] = useState('home');
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
     const t = translations[language].nav;
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
-    // If not on homepage, prepend "/" to hash links
+    const handleLinkClick = (path) => {
+        if (path === '/blog') {
+            setActiveSection('blog');
+        } else {
+            setActiveSection(path.replace('#', ''));
+        }
+        if (isOpen) setIsOpen(false);
+    };
+
     const getLinkPath = (path) => {
         if (path.startsWith('#') && pathname !== '/') {
             return `/${path}`;
@@ -38,15 +55,63 @@ const Navbar = () => {
         { name: t.contact, path: '#contact' },
     ];
 
+    useEffect(() => {
+        if (pathname.includes('/blog')) {
+            setActiveSection('blog');
+        }
+
+        const handleScroll = () => {
+            // Shrink navbar logic
+            setIsScrolled(window.scrollY > 50);
+
+            // Active section logic
+            const sections = ['home', 'about', 'skills', 'services', 'projects', 'contact'];
+            const scrollPosition = window.scrollY + 110;
+
+            for (const section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const offsetTop = element.offsetTop;
+                    const offsetHeight = element.offsetHeight;
+
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        setActiveSection(section);
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [pathname]);
+
+    const isLinkActive = (path) => {
+        if (path === '/blog') return activeSection === 'blog';
+        return activeSection === path.replace('#', '');
+    };
+
     return (
         <motion.nav
             initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed w-full z-[100] bg-background border-b border-borderDark transition-colors duration-300"
+            animate={{ 
+                y: 0,
+                height: isScrolled ? '64px' : '80px',
+                backgroundColor: theme === 'dark' 
+                    ? (isScrolled ? 'rgba(31, 32, 41, 0.8)' : 'rgba(31, 32, 41, 1)')
+                    : (isScrolled ? 'rgba(241, 245, 249, 0.8)' : 'rgba(241, 245, 249, 1)')
+            }}
+            transition={{ duration: 0.3 }}
+            className={`fixed w-full z-[100] border-b border-borderDark transition-all duration-300 ${isScrolled ? 'backdrop-blur-md shadow-lg' : ''}`}
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-20">
+            {/* Integrated Scroll Progress Bar */}
+            <motion.div
+                className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-primary origin-left z-20"
+                style={{ scaleX }}
+            />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+                <div className="flex justify-between items-center h-full">
                     {/* Logo */}
                     <motion.div
                         className="flex-shrink-0 flex items-center"
@@ -54,61 +119,88 @@ const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                        <Link href="#home" className="text-primary text-2xl font-bold font-heading tracking-wider hover:brightness-110 transition-colors">
+                        <Link href="/#home" className="text-primary text-2xl font-bold font-heading tracking-wider hover:brightness-110 transition-colors">
                             Portfolio.
                         </Link>
                     </motion.div>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <div className="hidden md:flex flex-1 items-center justify-end space-x-2 lg:space-x-6 h-full">
                         {navLinks.map((link, index) => (
                             <motion.div
                                 key={link.name}
-                                className={link.name === 'Contact' ? "ml-4" : ""}
+                                className={link.name === 'Contact' ? "ml-4 h-full flex items-center" : "relative group h-full flex items-center"}
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
                             >
                                 {link.name === 'Contact' ? (
-                                    <Link
-                                        href={getLinkPath(link.path)}
-                                        className="text-primary border border-borderDark px-6 py-2 rounded-full hover:bg-primary hover:text-background transition-all duration-300 text-sm font-medium tracking-wide"
+                                    <motion.div
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
                                     >
-                                        {link.name}
-                                    </Link>
+                                        <Link
+                                            href={getLinkPath(link.path)}
+                                            onClick={() => handleLinkClick(link.path)}
+                                            className={`text-primary border border-primary px-5 py-2 rounded-full hover:bg-primary hover:text-background transition-all duration-300 text-sm font-medium tracking-wide whitespace-nowrap ${isLinkActive(link.path) ? 'bg-primary text-background' : ''}`}
+                                        >
+                                            {link.name}
+                                        </Link>
+                                    </motion.div>
                                 ) : (
                                     <Link
                                         href={getLinkPath(link.path)}
-                                        className="text-textMain hover:text-primary transition-colors text-sm font-medium tracking-wide relative group"
+                                        onClick={() => handleLinkClick(link.path)}
+                                        className={`transition-colors text-sm font-medium tracking-wide relative h-full flex items-center px-3 whitespace-nowrap group ${isLinkActive(link.path) ? 'text-primary' : 'text-textMain hover:text-primary'}`}
                                     >
-                                        {link.name}
-                                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                                        <motion.span
+                                            whileHover={{ scale: 1.1, y: -2 }}
+                                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                        >
+                                            {link.name}
+                                        </motion.span>
+                                        {isLinkActive(link.path) && (
+                                            <motion.span
+                                                layoutId="activeUnderline"
+                                                className="absolute bottom-[-1px] left-0 w-full h-0.5 bg-primary z-10"
+                                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                                            />
+                                        )}
+                                        {!isLinkActive(link.path) && (
+                                            <span className="absolute bottom-[-1px] left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 z-10"></span>
+                                        )}
                                     </Link>
                                 )}
                             </motion.div>
                         ))}
 
-                        <motion.button
-                            onClick={toggleLanguage}
-                            className="text-textMain hover:text-primary px-3 py-2 focus:outline-none transition-colors text-sm font-bold border border-borderDark rounded-md"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.5 }}
-                            aria-label="Toggle Language"
-                        >
-                            {language === 'fr' ? 'EN' : 'FR'}
-                        </motion.button>
+                        <div className="flex items-center ml-4 space-x-2">
+                            <motion.button
+                                onClick={toggleLanguage}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="text-textMain hover:text-primary px-3 py-1.5 focus:outline-none transition-colors text-xs font-bold border border-borderDark rounded-md"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                                aria-label="Toggle Language"
+                            >
+                                {language === 'fr' ? 'EN' : 'FR'}
+                            </motion.button>
 
-                        <motion.button
-                            onClick={toggleTheme}
-                            className="text-textMain hover:text-primary p-2 focus:outline-none transition-colors"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.5 }}
-                            aria-label="Toggle Theme"
-                        >
-                            <FontAwesomeIcon icon={faCircleHalfStroke} size="lg" className={`transform transition-transform duration-500 ${theme === 'dark' ? 'rotate-180' : 'rotate-0'}`} />
-                        </motion.button>
+                            <motion.button
+                                onClick={toggleTheme}
+                                whileHover={{ scale: 1.1, rotate: 15 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="text-textMain hover:text-primary p-2 focus:outline-none transition-colors"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                                aria-label="Toggle Theme"
+                            >
+                                <FontAwesomeIcon icon={faCircleHalfStroke} size="lg" className={`transform transition-transform duration-500 ${theme === 'dark' ? 'rotate-180' : 'rotate-0'}`} />
+                            </motion.button>
+                        </div>
                     </div>
 
                     {/* Mobile menu button and Theme Toggle */}
@@ -140,7 +232,7 @@ const Navbar = () => {
             {/* Mobile Menu */}
             {isOpen && (
                 <motion.div
-                    className="md:hidden bg-card border-b border-borderDark absolute w-full left-0 shadow-lg"
+                    className="md:hidden bg-card/95 backdrop-blur-xl border-b border-borderDark absolute w-full left-0 shadow-lg"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -158,16 +250,16 @@ const Navbar = () => {
                                 {link.name === 'Contact' ? (
                                     <Link
                                         href={getLinkPath(link.path)}
-                                        onClick={() => setIsOpen(false)}
-                                        className="text-primary border border-primary block px-4 py-2 mx-2 rounded-full text-center text-base font-medium hover:bg-primary hover:text-white dark:hover:text-gray-900 transition-colors"
+                                        onClick={() => handleLinkClick(link.path)}
+                                        className={`text-primary border border-primary block px-4 py-2 mx-2 rounded-full text-center text-base font-medium transition-colors ${isLinkActive(link.path) ? 'bg-primary text-background' : 'hover:bg-primary hover:text-white dark:hover:text-gray-900'}`}
                                     >
                                         {link.name}
                                     </Link>
                                 ) : (
                                     <Link
                                         href={getLinkPath(link.path)}
-                                        onClick={() => setIsOpen(false)}
-                                        className="text-textMain hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                                        onClick={() => handleLinkClick(link.path)}
+                                        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isLinkActive(link.path) ? 'text-primary bg-primary/10' : 'text-textMain hover:text-primary'}`}
                                     >
                                         {link.name}
                                     </Link>

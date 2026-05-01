@@ -12,7 +12,7 @@ export const translations = {
         hero: {
             hi: 'Ben',
             lastName: 'Mampuya',
-            roles: 'Développeur Front-End | UI/UX Web Designer | Agent MEAL | Data Analyst | Community Manager | Administrateur Systèmes & Réseaux IT',
+            roles: 'Développeur Front-End | UI/UX Designer Professionnel | Agent MEAL | Data Analyst | Community Manager | Administrateur Systèmes & Réseaux IT',
             description1: "Professionnel polyvalent à l’intersection du digital, de la donnée et de l’impact terrain, je conçois des solutions web intuitives, analyse les données pour éclairer la prise de décision, et renforce la visibilité des organisations grâce à des stratégies digitales efficaces.",
             description2: "Mon approche allie créativité, rigueur analytique et compréhension des besoins utilisateurs pour produire des résultats concrets et mesurables.",
             ctaContact: 'Contactez-moi',
@@ -22,7 +22,7 @@ export const translations = {
             title: 'À propos de ',
             titleHighlight: 'Moi',
             role1: 'Développeur Front-End',
-            role2: 'UI/UX Web Designer',
+            role2: 'UI/UX Designer Professionnel',
             role3: 'Community Manager',
             role4: 'Administrateur Systèmes & Réseaux IT',
             tabs: {
@@ -108,7 +108,7 @@ export const translations = {
                     description: "Création d'interfaces web modernes et responsives avec React, HTML5, CSS3 et JavaScript. Développement d'applications web interactives et optimisées pour une expérience utilisateur exceptionnelle.",
                 },
                 {
-                    title: 'UI/UX Design',
+                    title: 'UI/UX Design Professionnel',
                     description: "Conception d'interfaces utilisateur ergonomiques et intuitives. Création de maquettes et prototypes avec Figma, en mettant l'accent sur l'expérience utilisateur et l'accessibilité.",
                 },
                 {
@@ -231,7 +231,7 @@ export const translations = {
         hero: {
             hi: 'Ben',
             lastName: 'Mampuya',
-            roles: 'Front-End Developer | UI/UX Web Designer | MEAL Officer | Data Analyst | Community Manager | IT Network & Systems Admin',
+            roles: 'Front-End Developer | Professional UI/UX Designer | MEAL Officer | Data Analyst | Community Manager | IT Network & Systems Admin',
             description1: "Versatile professional at the intersection of digital, data, and field impact, I design intuitive web solutions, analyze data to inform decision-making, and strengthen organizational visibility through effective digital strategies.",
             description2: "My approach combines creativity, analytical rigor, and understanding of user needs to produce concrete and measurable results.",
             ctaContact: 'Contact Me',
@@ -241,7 +241,7 @@ export const translations = {
             title: 'About ',
             titleHighlight: 'Me',
             role1: 'Front-End Developer',
-            role2: 'UI/UX Web Designer',
+            role2: 'Professional UI/UX Designer',
             role3: 'Community Manager',
             role4: 'IT Network & Systems Admin',
             tabs: {
@@ -327,7 +327,7 @@ export const translations = {
                     description: "Creating modern and responsive web interfaces with React, HTML5, CSS3, and JavaScript. Developing interactive and optimized web applications for an exceptional user experience.",
                 },
                 {
-                    title: 'UI/UX Design',
+                    title: 'Professional UI/UX Design',
                     description: "Designing ergonomic and intuitive user interfaces. Creating wireframes and prototypes with Figma, focusing on user experience and accessibility.",
                 },
                 {

@@ -155,7 +155,7 @@ const About = () => {
     };
 
     return (
-        <section id="about" className="py-12 md:py-16 bg-card/30 relative border-b border-borderDark z-40 transition-colors duration-300">
+        <section id="about" className="py-12 md:py-16 bg-card/30 relative border-b border-borderDark z-40 transition-colors duration-300 scroll-mt-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Title */}

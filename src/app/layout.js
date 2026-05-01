@@ -78,7 +78,6 @@ export default function RootLayout({ children }) {
       <GoogleTagManager gtmId="GTM-KQGQ5W2K" />
       <body className="antialiased min-h-screen bg-background text-textMain transition-colors duration-300 overflow-x-hidden">
         <CustomCursor />
-        <ScrollProgress />
         <AppRouterCacheProvider>
           <LanguageProvider>
             <ThemeProvider>
