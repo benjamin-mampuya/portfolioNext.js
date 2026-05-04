@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/components/ThemeProvider';
@@ -17,13 +17,6 @@ const Navbar = () => {
     const pathname = usePathname();
     const [activeSection, setActiveSection] = useState('home');
     const [isScrolled, setIsScrolled] = useState(false);
-
-    const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
 
     const t = translations[language].nav;
 
@@ -104,12 +97,6 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className={`fixed w-full z-[100] border-b border-borderDark transition-all duration-300 ${isScrolled ? 'backdrop-blur-md shadow-lg' : ''}`}
         >
-            {/* Integrated Scroll Progress Bar */}
-            <motion.div
-                className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-primary origin-left z-20"
-                style={{ scaleX }}
-            />
-
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
                 <div className="flex justify-between items-center h-full">
                     {/* Logo */}

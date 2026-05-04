@@ -12,7 +12,7 @@ export const translations = {
         hero: {
             hi: 'Ben',
             lastName: 'Mampuya',
-            roles: 'Développeur Front-End | UI/UX Designer Professionnel | Agent MEAL | Data Analyst | Community Manager | Administrateur Systèmes & Réseaux IT',
+            roles: 'Développeur Front-End | UI/UX Designer Professionnel | Agent MEAL | Data Analyst | Agent Suivi et Évaluation de projets | Administrateur Systèmes & Réseaux IT',
             description1: "Professionnel polyvalent à l’intersection du digital, de la donnée et de l’impact terrain, je conçois des solutions web intuitives, analyse les données pour éclairer la prise de décision, et renforce la visibilité des organisations grâce à des stratégies digitales efficaces.",
             description2: "Mon approche allie créativité, rigueur analytique et compréhension des besoins utilisateurs pour produire des résultats concrets et mesurables.",
             ctaContact: 'Contactez-moi',
@@ -23,7 +23,7 @@ export const translations = {
             titleHighlight: 'Moi',
             role1: 'Développeur Front-End',
             role2: 'UI/UX Designer Professionnel',
-            role3: 'Community Manager',
+            role3: 'Agent Suivi et Évaluation de projets',
             role4: 'Administrateur Systèmes & Réseaux IT',
             tabs: {
                 education: 'Qualifications éducatives',
